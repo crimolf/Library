@@ -1,7 +1,9 @@
 package it.fivenet.library.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Cliente {
@@ -11,6 +13,22 @@ public class Cliente {
     private String nome;
     private String cognome;
     private String residenza;
+
+
+
+    @ManyToMany
+    @JoinTable(name = "prenotazione_cliente", joinColumns = @JoinColumn(name = "cliente_codFis"),
+            inverseJoinColumns = @JoinColumn(name = "prenotazione_idP"))
+    private Set<Autore> autori=new HashSet<>();
+    public Set<Autore> getAutori() {
+        return autori;
+    }
+    public void setAutori(Set<Autore> autori) {
+        this.autori = autori;
+    }
+
+
+
 
     public String getCodFis() {
         return codFis;

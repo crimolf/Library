@@ -16,29 +16,46 @@ public class BootstrapData implements CommandLineRunner {
 
     private final RepositoryAutore repositoryAutore;
     private final RepositoryLibro repositoryLibro;
-    private final RepositoryCliente repositoryCliente;
-    private final RepositoryPrenotazione repositoryPrenotazione;
 
-    public BootstrapData(RepositoryAutore repositoryAutore, RepositoryLibro repositoryLibro, RepositoryCliente repositoryCliente, RepositoryPrenotazione repositoryPrenotazione) {
-        this.repositoryAutore = repositoryAutore;
+    public BootstrapData(RepositoryAutore authorRepository, RepositoryLibro repositoryLibro) {
+        this.repositoryAutore = authorRepository;
         this.repositoryLibro = repositoryLibro;
-        this.repositoryCliente = repositoryCliente;
-        this.repositoryPrenotazione = repositoryPrenotazione;
     }
 
     @Override
-    public void run(String... args) throws Exception{
-
-        Autore eric=new Autore();
+    public void run(String... args) throws Exception {
+        Autore eric = new Autore();
         eric.setNome("Eric");
         eric.setCognome("Evans");
 
-        Libro ddd=new Libro();
+        Libro ddd = new Libro();
         ddd.setTitolo("Domain Driven Design");
-        ddd.setISBN(12345);
+        ddd.setISBN(123456);
+
+        Autore ericSaved = repositoryAutore.save(eric);
+        Libro dddSaved = repositoryLibro.save(ddd);
+
+        Autore rod = new Autore();
+        rod.setNome("Rod");
+        rod.setCognome("Johnson");
+
+        Libro noEJB = new Libro();
+        noEJB.setTitolo("J2EE Development without EJB");
+        noEJB.setISBN(54757585);
+
+        Autore rodSaved = repositoryAutore.save(rod);
+        Libro noEJBSaved = repositoryLibro.save(noEJB);
+
+        ericSaved.getLibri().add(dddSaved);
+        rodSaved.getLibri().add(noEJBSaved);
+
+        repositoryAutore.save(ericSaved);
+        repositoryAutore.save(rodSaved);
+
+        System.out.println("In Bootstrap");
+        System.out.println("Autore Count: " + repositoryAutore.count());
+        System.out.println("Libri Count: " + repositoryLibro.count());
 
 
     }
-
-
 }

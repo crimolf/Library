@@ -1,11 +1,12 @@
 package it.fivenet.library.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 @Entity
 public class Prenotazione {
     @Id
@@ -14,6 +15,20 @@ public class Prenotazione {
     private Date inizioPrenotazione;
     private Date scadenza;
     private boolean restituito;
+
+    @OneToMany(mappedBy = "prenotazione")
+    private Set<Libro> libri;
+
+
+
+    public Set<Libro> getLibri() {
+        return libri;
+    }
+    public void setLibri(Set<Libro> libri) {
+        this.libri = libri;
+    }
+
+
 
     public int getIdP() {
         return idP;
@@ -56,5 +71,19 @@ public class Prenotazione {
                 ", scadenza=" + scadenza +
                 ", restituito=" + restituito +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prenotazione that = (Prenotazione) o;
+        return idP == that.idP && restituito == that.restituito && Objects.equals(inizioPrenotazione, that.inizioPrenotazione) && Objects.equals(scadenza, that.scadenza) && Objects.equals(libri, that.libri);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idP, inizioPrenotazione, scadenza, restituito, libri);
     }
 }

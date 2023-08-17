@@ -1,7 +1,7 @@
 package it.fivenet.library.domain;
-
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +13,7 @@ public class Autore {
     private String cognome;
 
     @ManyToMany(mappedBy = "autori")
-    private Set<Libro> libri;
+    private Set<Libro> libri=new HashSet<>();
 
     public Set<Libro> getLibri() {
         return libri;

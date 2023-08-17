@@ -1,7 +1,8 @@
 package it.fivenet.library.domain;
-
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -11,10 +12,14 @@ public class Libro {
     private String titolo;
     private String testo;
 
+
     @ManyToMany
     @JoinTable(name = "autore_libro", joinColumns = @JoinColumn(name = "libro_ISBN"),
             inverseJoinColumns = @JoinColumn(name = "autore_idA"))
-    private Set<Autore> autori;
+    private Set<Autore> autori = new HashSet<>();
+
+    @ManyToOne
+    private Prenotazione prenotazione;
 
     public Set<Autore> getAutori() {
         return autori;
@@ -22,6 +27,14 @@ public class Libro {
 
     public void setAutori(Set<Autore> autori) {
         this.autori = autori;
+    }
+
+    public Prenotazione getPrenotazione() {
+        return prenotazione;
+    }
+
+    public void setPrenotazione(Prenotazione prenotazione) {
+        this.prenotazione = prenotazione;
     }
 
     public int getISBN() {
@@ -56,5 +69,18 @@ public class Libro {
                 ", testo='" + testo + '\'' +
                 ", autori=" + autori +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Libro libro = (Libro) o;
+        return ISBN == libro.ISBN && Objects.equals(titolo, libro.titolo) && Objects.equals(testo, libro.testo) && Objects.equals(autori, libro.autori) && Objects.equals(prenotazione, libro.prenotazione);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ISBN, titolo, testo, autori, prenotazione);
     }
 }
