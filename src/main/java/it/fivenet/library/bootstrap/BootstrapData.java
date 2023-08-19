@@ -48,6 +48,8 @@ public class BootstrapData implements CommandLineRunner {
 
         ericSaved.getLibri().add(dddSaved);
         rodSaved.getLibri().add(noEJBSaved);
+        dddSaved.getAutori().add(ericSaved);
+        noEJBSaved.getAutori().add(rodSaved);
 
         repositoryAutore.save(ericSaved);
         repositoryAutore.save(rodSaved);

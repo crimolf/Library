@@ -15,6 +15,10 @@ public class Autore {
     @ManyToMany(mappedBy = "autori")
     private Set<Libro> libri=new HashSet<>();
 
+
+
+
+
     public Set<Libro> getLibri() {
         return libri;
     }
@@ -46,6 +50,8 @@ public class Autore {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
+
+
 
 
     @Override

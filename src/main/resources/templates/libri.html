@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring - Library</title>
+</head>
+<body>
+<h1>Lista Libri</h1>
+
+<table>
+    <tr>
+        <th>ISBN</th>
+        <th>Titolo</th>
+        <!--        <th>Autore</th>     -->
+    </tr>
+    <tr th:each="libro : ${libri}">
+        <td th:text="${libro.ISBN}">1428991</td>
+        <td th:text="${libro.titolo}">Spring in Action</td>
+        <!--        <td th:text="${libro.autore.nome}">Alessandro</td>      -->
+    </tr>
+</table>
+
+</body>
+</html>

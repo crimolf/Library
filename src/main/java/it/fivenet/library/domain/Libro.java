@@ -21,6 +21,17 @@ public class Libro {
     @ManyToOne
     private Prenotazione prenotazione;
 
+    @ManyToOne
+    private Autore autore;
+
+    public Autore getAutore() {
+        return autore;
+    }
+
+    public void setAutore(Autore autore) {
+        this.autore = autore;
+    }
+
     public Set<Autore> getAutori() {
         return autori;
     }
@@ -60,6 +71,9 @@ public class Libro {
     public void setTesto(String testo) {
         this.testo = testo;
     }
+
+
+
 
     @Override
     public String toString() {
