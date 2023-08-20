@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring - Library</title>
+</head>
+<body>
+<h1>Lista Clienti</h1>
+
+<table>
+    <tr>
+        <th>Codice_Fiscale</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Residenza</th>
+
+    </tr>
+    <tr th:each="cliente : ${clienti}">
+        <td th:text="${cliente.codFis}"></td>
+        <td th:text="${cliente.nome}"></td>
+        <td th:text="${cliente.cognome}"></td>
+        <td th:text="${cliente.residenza}"></td>
+
+    </tr>
+</table>
+
+</body>
+</html>

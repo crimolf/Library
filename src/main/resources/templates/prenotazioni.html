@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring - Library</title>
+</head>
+<body>
+<h1>Lista Prenotazioni</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Inizio_Prenotazione</th>
+        <th>Scadenza</th>
+        <th>Restituito</th>
+    </tr>
+    <tr th:each="prenotazione : ${prenotazioni}">
+        <td th:text="${prenotazione.idP}"></td>
+        <td th:text="${prenotazione.inizioPrenotazione}"></td>
+        <td th:text="${prenotazione.scadenza}"></td>
+        <td th:text="${prenotazione.restituito}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
