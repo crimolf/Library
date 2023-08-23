@@ -1,0 +1,47 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center; /* Centra il contenuto orizzontalmente */
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+}
+
+.container {
+    width: 40%; /* Larghezza del contenitore al 80% della larghezza della pagina */
+    margin: 20px auto; /* Centro il contenitore verticalmente e orizzontalmente */
+    padding: 20px; /* Aggiunge spaziatura interna al contenitore */
+    background-color: #fff; /* Colore di sfondo per separare il contenuto dalla pagina */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Aggiunge una leggera ombra al contenitore */
+}
+
+table {
+    width: 100%; /* La tabella occupa tutto lo spazio del contenitore */
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center; /* Centra il testo orizzontalmente nelle celle */
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+td:last-child {
+    border-right: 1px solid #ddd; /* Aggiunge un bordo destro all'ultima colonna */
+}

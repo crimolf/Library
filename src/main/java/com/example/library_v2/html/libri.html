@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring - Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+</head>
+<body>
+<h1>Lista Libri</h1>
+
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titolo</th>
+            <th>Testo</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="libro : ${libri}">
+            <td th:text="${libro.ISBN}"></td>
+            <td th:text="${libro.titolo}"></td>
+            <td th:text="${libro.testo}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
