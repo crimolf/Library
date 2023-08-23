@@ -1,4 +1,4 @@
-package com.example.library_v2;
+package it.fivenet.playground.library;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

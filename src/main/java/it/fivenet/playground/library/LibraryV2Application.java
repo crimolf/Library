@@ -1,4 +1,4 @@
-package com.example.library_v2;
+package it.fivenet.playground.library;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -8,10 +8,10 @@
         <version>3.1.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>guru.springframework</groupId>
-    <artifactId>spring-6-webapp</artifactId>
+    <groupId>it.fivenet.playground</groupId>
+    <artifactId>library</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-6-webapp</name>
+    <name>library</name>
     <description>Spring 6 Web App</description>
 
     <properties>

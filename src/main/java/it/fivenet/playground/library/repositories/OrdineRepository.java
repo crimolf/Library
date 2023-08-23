@@ -1,6 +1,6 @@
-package com.example.library_v2.repositories;
+package it.fivenet.playground.library.repositories;
 
-import com.example.library_v2.domain.Ordine;
+import it.fivenet.playground.library.domain.Ordine;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrdineRepository extends JpaRepository<Ordine, Long> {

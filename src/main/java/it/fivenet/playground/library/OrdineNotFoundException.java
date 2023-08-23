@@ -1,4 +1,4 @@
-package com.example.library_v2;
+package it.fivenet.playground.library;
 
 public class OrdineNotFoundException extends RuntimeException {
     public OrdineNotFoundException(Long id) {

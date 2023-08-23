@@ -1,9 +1,8 @@
-package com.example.library_v2;
+package it.fivenet.playground.library;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import com.example.library_v2.controllers.ControllerLibro;
-import com.example.library_v2.domain.Libro;
-import org.springframework.hateoas.CollectionModel;
+import it.fivenet.playground.library.controllers.ControllerLibro;
+import it.fivenet.playground.library.domain.Libro;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;

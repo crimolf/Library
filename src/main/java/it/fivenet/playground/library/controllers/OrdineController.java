@@ -1,10 +1,10 @@
-package com.example.library_v2.controllers;
+package it.fivenet.playground.library.controllers;
 
-import com.example.library_v2.OrdineModelAssembler;
-import com.example.library_v2.OrdineNotFoundException;
-import com.example.library_v2.Status;
-import com.example.library_v2.domain.Ordine;
-import com.example.library_v2.repositories.OrdineRepository;
+import it.fivenet.playground.library.OrdineModelAssembler;
+import it.fivenet.playground.library.OrdineNotFoundException;
+import it.fivenet.playground.library.Status;
+import it.fivenet.playground.library.domain.Ordine;
+import it.fivenet.playground.library.repositories.OrdineRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;

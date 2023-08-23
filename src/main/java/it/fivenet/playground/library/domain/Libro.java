@@ -1,4 +1,4 @@
-package com.example.library_v2.domain;
+package it.fivenet.playground.library.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

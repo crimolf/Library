@@ -1,12 +1,12 @@
-package com.example.library_v2.controllers;
+package it.fivenet.playground.library.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.library_v2.LibroModelAssembler;
-import com.example.library_v2.LibroNotFoundException;
-import com.example.library_v2.domain.Libro;
-import com.example.library_v2.repositories.LibroRepository;
+import it.fivenet.playground.library.LibroModelAssembler;
+import it.fivenet.playground.library.LibroNotFoundException;
+import it.fivenet.playground.library.domain.Libro;
+import it.fivenet.playground.library.repositories.LibroRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;

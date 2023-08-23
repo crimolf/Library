@@ -1,16 +1,10 @@
-package com.example.library_v2;
+package it.fivenet.playground.library;
 
 
-import com.example.library_v2.domain.Libro;
-import com.example.library_v2.domain.Ordine;
-import com.example.library_v2.repositories.LibroRepository;
-import com.example.library_v2.repositories.OrdineRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
+import it.fivenet.playground.library.domain.Libro;
+import it.fivenet.playground.library.domain.Ordine;
+import it.fivenet.playground.library.repositories.LibroRepository;
+import it.fivenet.playground.library.repositories.OrdineRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

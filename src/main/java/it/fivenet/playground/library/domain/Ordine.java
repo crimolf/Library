@@ -1,14 +1,12 @@
-package com.example.library_v2.domain;
+package it.fivenet.playground.library.domain;
 
-import com.example.library_v2.Status;
+import it.fivenet.playground.library.Status;
 
 import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "CUSTOMER_ORDER")

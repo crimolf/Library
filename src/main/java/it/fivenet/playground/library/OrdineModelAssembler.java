@@ -1,8 +1,8 @@
-package com.example.library_v2;
+package it.fivenet.playground.library;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import com.example.library_v2.controllers.OrdineController;
-import com.example.library_v2.domain.Ordine;
+import it.fivenet.playground.library.controllers.OrdineController;
+import it.fivenet.playground.library.domain.Ordine;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
