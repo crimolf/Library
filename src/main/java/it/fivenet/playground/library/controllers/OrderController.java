@@ -1,8 +1,8 @@
 package it.fivenet.playground.library.controllers;
 
-import it.fivenet.playground.library.OrderModelAssembler;
-import it.fivenet.playground.library.OrdineNotFoundException;
-import it.fivenet.playground.library.Status;
+import it.fivenet.playground.library.common.OrderModelAssembler;
+import it.fivenet.playground.library.exceptions.OrderNotFoundException;
+import it.fivenet.playground.library.domain.OrderStatus;
 import it.fivenet.playground.library.domain.Order;
 import it.fivenet.playground.library.services.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +45,7 @@ public class OrderController {
     public EntityModel<Order> one(@PathVariable Long id) {
 
         Order order = orderService.findById(id) //
-                .orElseThrow(() -> new OrdineNotFoundException(id));
+                .orElseThrow(() -> new OrderNotFoundException(id));
 
         return assembler.toModel(order);
     }
@@ -69,7 +69,7 @@ public class OrderController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
                 .body(Problem.create() //
                         .withTitle("Method not allowed") //
-                        .withDetail("You can't cancel an order that is in the " + order.get().getStatus() + " status"));
+                        .withDetail("You can't cancel an order that is in the " + order.get().getCurrentOrderStatus() + " status"));
     }
 
     @PutMapping("/ordini/{id}/returned")
@@ -77,8 +77,8 @@ public class OrderController {
 
         Optional<Order>order = orderService.findById(id) ;
 
-        if (order.get().getStatus() == Status.NOLEGGIATO) {
-            order.get().setStatus(Status.NOLEGGIATO);
+        if (order.get().getCurrentOrderStatus() == OrderStatus.NOLEGGIATO) {
+            order.get().setCurrentOrderStatus(OrderStatus.NOLEGGIATO);
             return ResponseEntity.ok(assembler.toModel(orderService.save(order)));
         }
 

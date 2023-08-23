@@ -1,8 +1,9 @@
-package it.fivenet.playground.library;
+package it.fivenet.playground.library.common;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import it.fivenet.playground.library.controllers.OrderController;
 import it.fivenet.playground.library.domain.Order;
+import it.fivenet.playground.library.domain.OrderStatus;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class OrderModelAssembler implements RepresentationModelAssembler<Order, 
 
         // Conditional links based on state of the order
 
-        if (order.getStatus() == Status.NOLEGGIATO) {
+        if (order.getCurrentOrderStatus() == OrderStatus.NOLEGGIATO) {
             orderModel.add(linkTo(methodOn(OrderController.class).cancel(order.getId())).withRel("cancel"));
             orderModel.add(linkTo(methodOn(OrderController.class).complete(order.getId())).withRel("complete"));
         }

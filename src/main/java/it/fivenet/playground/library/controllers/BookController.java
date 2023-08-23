@@ -3,10 +3,10 @@ package it.fivenet.playground.library.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.fivenet.playground.library.LibroModelAssembler;
-import it.fivenet.playground.library.LibroNotFoundException;
+import it.fivenet.playground.library.common.BookModelAssembler;
+import it.fivenet.playground.library.exceptions.BookNotFoundException;
 import it.fivenet.playground.library.domain.Book;
-import it.fivenet.playground.library.repositories.LibroRepository;
+import it.fivenet.playground.library.repositories.BookRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -24,10 +24,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class BookController {
-    private final LibroRepository repository;
-    private final LibroModelAssembler assembler;
+    private final BookRepository repository;
+    private final BookModelAssembler assembler;
 
-    BookController(LibroRepository repository, LibroModelAssembler assembler) {
+    BookController(BookRepository repository, BookModelAssembler assembler) {
         this.repository = repository;
         this.assembler = assembler;
     }
@@ -62,7 +62,7 @@ public class BookController {
     public EntityModel<Book> one(@PathVariable Long id) {
 
         Book book = repository.findById(id) //
-                .orElseThrow(() -> new LibroNotFoundException(id));
+                .orElseThrow(() -> new BookNotFoundException(id));
 
         return assembler.toModel(book);
     }

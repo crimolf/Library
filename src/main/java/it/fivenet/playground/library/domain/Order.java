@@ -1,8 +1,7 @@
 package it.fivenet.playground.library.domain;
 
-import it.fivenet.playground.library.Status;
+import java.time.LocalDateTime;
 
-import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,9 +22,10 @@ public class Order {
     private @Id @GeneratedValue Long id;
 
     private String description;
-    private Status status;
-
-
-
+    private OrderStatus currentOrderStatus;
+    private Long bookId;
+    private String customerId;
+    private LocalDateTime creationDate;
+    private LocalDateTime lastUpdateDate;
 
 }

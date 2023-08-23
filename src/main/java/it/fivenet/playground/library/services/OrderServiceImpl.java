@@ -1,14 +1,8 @@
 package it.fivenet.playground.library.services;
 
-import it.fivenet.playground.library.OrderModelAssembler;
-import it.fivenet.playground.library.OrdineNotFoundException;
-import it.fivenet.playground.library.Status;
+import it.fivenet.playground.library.domain.OrderStatus;
 import it.fivenet.playground.library.domain.Order;
 import it.fivenet.playground.library.repositories.OrderRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Long newOrder(Order order) {
-        order.setStatus(Status.NOLEGGIATO);
+        order.setCurrentOrderStatus(OrderStatus.NOLEGGIATO);
 
         Order newOrder = orderRepository.save(order);
         return newOrder.getId();
@@ -44,8 +38,8 @@ public class OrderServiceImpl implements OrderService {
 
         Optional<Order>order = orderRepository.findById(orderId) ;
 
-        if (order.get().getStatus() == Status.NOLEGGIATO) {
-            order.get().setStatus(Status.RESTITUITO);
+        if (order.get().getCurrentOrderStatus() == OrderStatus.NOLEGGIATO) {
+            order.get().setCurrentOrderStatus(OrderStatus.RESTITUITO);
             orderRepository.save(order.get());
         }
 

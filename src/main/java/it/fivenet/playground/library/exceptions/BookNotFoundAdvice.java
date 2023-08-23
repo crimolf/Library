@@ -1,4 +1,4 @@
-package it.fivenet.playground.library;
+package it.fivenet.playground.library.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class LibroNotFoundAdvice {
+class BookNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(LibroNotFoundException.class)
+    @ExceptionHandler(BookNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String libroNotFoundHandler(LibroNotFoundException ex) {
+    String bookNotFoundHandler(BookNotFoundException ex) {
         return ex.getMessage();
     }
 }
