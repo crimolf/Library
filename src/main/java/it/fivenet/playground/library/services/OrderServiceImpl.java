@@ -6,17 +6,22 @@ import it.fivenet.playground.library.Status;
 import it.fivenet.playground.library.domain.Order;
 import it.fivenet.playground.library.repositories.OrderRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
+
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    public OrderServiceImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
+
     @Override
     public Long newOrder(Order order) {
         order.setStatus(Status.NOLEGGIATO);
