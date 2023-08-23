@@ -19,5 +19,6 @@ public class Book {
     @GeneratedValue Long id;
     private String titolo;
     private String testo;
-
+    private Long numerBookInStock;
+    private Long numberBooksOut;
 }
