@@ -1,8 +1,8 @@
 package it.fivenet.playground.library;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import it.fivenet.playground.library.controllers.ControllerLibro;
-import it.fivenet.playground.library.domain.Libro;
+import it.fivenet.playground.library.controllers.BookController;
+import it.fivenet.playground.library.domain.Book;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 //converts Libro objects to EntityModel<Libro> objects
 
 @Component
-public class LibroModelAssembler implements RepresentationModelAssembler<Libro, EntityModel<Libro>> {
+public class LibroModelAssembler implements RepresentationModelAssembler<Book, EntityModel<Book>> {
     @Override
-    public EntityModel<Libro> toModel(Libro libro) {
+    public EntityModel<Book> toModel(Book book) {
 
-        return EntityModel.of(libro, //
-                linkTo(methodOn(ControllerLibro.class).one(libro.getId())).withSelfRel(),
-                linkTo(methodOn(ControllerLibro.class).all()).withRel("libri"));
+        return EntityModel.of(book, //
+                linkTo(methodOn(BookController.class).one(book.getId())).withSelfRel(),
+                linkTo(methodOn(BookController.class).all()).withRel("libri"));
     }
 }

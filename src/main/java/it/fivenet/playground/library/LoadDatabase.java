@@ -1,10 +1,10 @@
 package it.fivenet.playground.library;
 
 
-import it.fivenet.playground.library.domain.Libro;
-import it.fivenet.playground.library.domain.Ordine;
+import it.fivenet.playground.library.domain.Book;
+import it.fivenet.playground.library.domain.Order;
 import it.fivenet.playground.library.repositories.LibroRepository;
-import it.fivenet.playground.library.repositories.OrdineRepository;
+import it.fivenet.playground.library.repositories.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -17,19 +17,19 @@ class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(LibroRepository libroRepository, OrdineRepository ordineRepository) {
+    CommandLineRunner initDatabase(LibroRepository libroRepository, OrderRepository orderRepository) {
 
         return args -> {
-            libroRepository.save(new Libro("Bilbo", "Baggins"));
-            libroRepository.save(new Libro("Frodo", "Baggins"));
+            libroRepository.save(Book.builder().titolo("signore degli anelli").testo("lorem ispum").build());
+            libroRepository.save(Book.builder().titolo("bibbia").testo("lorem ispum").build());
 
-            libroRepository.findAll().forEach(libro -> log.info("Preloaded " + libro));
+            libroRepository.findAll().forEach(book -> log.info("Preloaded " + book));
 
 
-            ordineRepository.save(new Ordine("Odissea", Status.RESTITUITO));
-            ordineRepository.save(new Ordine("Guerra e pace", Status.NOLEGGIATO));
+            orderRepository.save(new Order("Odissea", Status.RESTITUITO));
+            orderRepository.save(new Order("Guerra e pace", Status.NOLEGGIATO));
 
-            ordineRepository.findAll().forEach(ordine -> {
+            orderRepository.findAll().forEach(ordine -> {
                 log.info("Preloaded " + ordine);
             });
 

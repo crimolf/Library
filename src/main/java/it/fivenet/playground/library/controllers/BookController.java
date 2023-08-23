@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import it.fivenet.playground.library.LibroModelAssembler;
 import it.fivenet.playground.library.LibroNotFoundException;
-import it.fivenet.playground.library.domain.Libro;
+import it.fivenet.playground.library.domain.Book;
 import it.fivenet.playground.library.repositories.LibroRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -23,11 +23,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-public class ControllerLibro {
+public class BookController {
     private final LibroRepository repository;
     private final LibroModelAssembler assembler;
 
-    ControllerLibro(LibroRepository repository, LibroModelAssembler assembler) {
+    BookController(LibroRepository repository, LibroModelAssembler assembler) {
         this.repository = repository;
         this.assembler = assembler;
     }
@@ -36,20 +36,20 @@ public class ControllerLibro {
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/libri")
-    public CollectionModel<EntityModel<Libro>> all() {
+    public CollectionModel<EntityModel<Book>> all() {
 
-        List<EntityModel<Libro>> libri = repository.findAll().stream() //
+        List<EntityModel<Book>> libri = repository.findAll().stream() //
                 .map(assembler::toModel) //
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(libri, linkTo(methodOn(ControllerLibro.class).all()).withSelfRel());
+        return CollectionModel.of(libri, linkTo(methodOn(BookController.class).all()).withSelfRel());
     }
     // end::get-aggregate-root[]
 
     @PostMapping("/libri")
-    ResponseEntity<?> newLibro(@RequestBody Libro newLibro) {
+    ResponseEntity<?> newLibro(@RequestBody Book newBook) {
 
-        EntityModel<Libro> entityModel = assembler.toModel(repository.save(newLibro));
+        EntityModel<Book> entityModel = assembler.toModel(repository.save(newBook));
 
         return ResponseEntity //
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
@@ -59,29 +59,29 @@ public class ControllerLibro {
     // Single item
 
     @GetMapping("/libri/{id}")
-    public EntityModel<Libro> one(@PathVariable Long id) {
+    public EntityModel<Book> one(@PathVariable Long id) {
 
-        Libro libro = repository.findById(id) //
+        Book book = repository.findById(id) //
                 .orElseThrow(() -> new LibroNotFoundException(id));
 
-        return assembler.toModel(libro);
+        return assembler.toModel(book);
     }
 
     @PutMapping("/libri/{id}")
-    ResponseEntity<?> replaceLibro(@RequestBody Libro newLibro, @PathVariable Long id) {
+    ResponseEntity<?> replaceLibro(@RequestBody Book newBook, @PathVariable Long id) {
 
-        Libro updatedLibro = repository.findById(id) //
-                .map(libro -> {
-                    libro.setTitolo(newLibro.getTitolo());
-                    libro.setTesto(newLibro.getTesto());
-                    return repository.save(libro);
+        Book updatedBook = repository.findById(id) //
+                .map(book -> {
+                    book.setTitolo(newBook.getTitolo());
+                    book.setTesto(newBook.getTesto());
+                    return repository.save(book);
                 }) //
                 .orElseGet(() -> {
-                    newLibro.setId(id);
-                    return repository.save(newLibro);
+                    newBook.setId(id);
+                    return repository.save(newBook);
                 });
 
-        EntityModel<Libro> entityModel = assembler.toModel(updatedLibro);
+        EntityModel<Book> entityModel = assembler.toModel(updatedBook);
 
         return ResponseEntity //
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //

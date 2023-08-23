@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Spring - Library</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
 
 </head>
 <body>
@@ -20,10 +20,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="libro : ${libri}">
-            <td th:text="${libro.ISBN}"></td>
-            <td th:text="${libro.titolo}"></td>
-            <td th:text="${libro.testo}"></td>
+        <tr th:each="book : ${libri}">
+            <td th:text="${book.ISBN}"></td>
+            <td th:text="${book.titolo}"></td>
+            <td th:text="${book.testo}"></td>
 
         </tr>
         </tbody>
