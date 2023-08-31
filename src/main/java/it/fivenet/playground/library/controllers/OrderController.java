@@ -1,11 +1,17 @@
 package it.fivenet.playground.library.controllers;
 
+
+import it.fivenet.playground.library.common.BookModelAssembler;
 import it.fivenet.playground.library.common.OrderModelAssembler;
+import it.fivenet.playground.library.domain.Book;
 import it.fivenet.playground.library.exceptions.OrderNotFoundException;
 import it.fivenet.playground.library.domain.OrderStatus;
 import it.fivenet.playground.library.domain.Order;
+import it.fivenet.playground.library.repositories.BookRepository;
+import it.fivenet.playground.library.repositories.OrderRepository;
 import it.fivenet.playground.library.services.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
@@ -15,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,26 +29,29 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-@RequiredArgsConstructor
 @RestController
 public class OrderController {
     private final OrderService orderService;
     private final OrderModelAssembler assembler;
 
+    OrderController(OrderService orderService, OrderModelAssembler assembler) {
+        this.orderService = orderService;
+        this.assembler = assembler;
+    }
 
 
-    @GetMapping("/ordini")
+    @GetMapping("/orders")
     public CollectionModel<EntityModel<Order>> all() {
 
         List<EntityModel<Order>> orders = orderService.findAll().stream() //
-                .map(assembler::toModel) //
+                .map((Object order) -> assembler.toModel((Order) order)) //
                 .collect(Collectors.toList());
 
         return CollectionModel.of(orders, //
                 linkTo(methodOn(OrderController.class).all()).withSelfRel());
     }
 
-    @GetMapping("/ordini/{id}")
+    @GetMapping("/orders/{id}")
     public EntityModel<Order> one(@PathVariable Long id) {
 
         Order order = orderService.findById(id) //
@@ -50,43 +60,45 @@ public class OrderController {
         return assembler.toModel(order);
     }
 
-    @PostMapping("/ordini")
+    @PostMapping("/orders")
     ResponseEntity<EntityModel<Order>> newOrder(@RequestBody Order order) {
+
+        order.setCurrentOrderStatus(OrderStatus.NOLEGGIATO);
+        order.setCreationDate(LocalDateTime.now());
+        order.setLastUpdateDate(LocalDateTime.now());
+
         Long orderId=orderService.newOrder(order);
         return ResponseEntity //
                 .created(linkTo(methodOn(OrderController.class).one(orderId)).toUri()) //
                 .body(assembler.toModel(order));
     }
-    @DeleteMapping("/ordini/{id}")
-    public ResponseEntity<?> cancel(@PathVariable Long id) {
-
-        Optional<Order> order = orderService.findById(id) ;
-
-
-
-        return ResponseEntity //
-                .status(HttpStatus.METHOD_NOT_ALLOWED) //
-                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
-                .body(Problem.create() //
-                        .withTitle("Method not allowed") //
-                        .withDetail("You can't cancel an order that is in the " + order.get().getCurrentOrderStatus() + " status"));
+    @DeleteMapping("/orders/{id}")
+    public Optional<Order> delete(@PathVariable Long id) {
+        return orderService.deleteById(id);
     }
 
-    @PutMapping("/ordini/{id}/returned")
-    public ResponseEntity<?> returned(@PathVariable Long id) {
+    @PutMapping("/orders/{id}/return")
+    public ResponseEntity<Order> returned(@PathVariable Long id) {
 
-        Optional<Order>order = orderService.findById(id) ;
+        Order updateOrder = orderService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not exist with id: " + id));
 
-        if (order.get().getCurrentOrderStatus() == OrderStatus.NOLEGGIATO) {
-            order.get().setCurrentOrderStatus(OrderStatus.NOLEGGIATO);
-            return ResponseEntity.ok(assembler.toModel(orderService.save(order)));
-        }
+        updateOrder.setCurrentOrderStatus(OrderStatus.RESTITUITO);
+        updateOrder.setLastUpdateDate(LocalDateTime.now());
 
-        return ResponseEntity //
-                .status(HttpStatus.METHOD_NOT_ALLOWED) //
-                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
-                .body(Problem.create() //
-                        .withTitle("Method not allowed") //
-                        .withDetail("You can't complete an order that is in the " + order.getStatus() + " status"));
+        orderService.save(updateOrder);
+        return ResponseEntity.ok(updateOrder);
+    }
+
+    @PutMapping("/orders/{id}/cancel")
+    public ResponseEntity<Order> cancel(@PathVariable Long id) {
+
+        Order updateOrder = orderService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not exist with id: " + id));
+
+        updateOrder.setCurrentOrderStatus(OrderStatus.CANCELLATO);
+        updateOrder.setLastUpdateDate(LocalDateTime.now());
+
+        orderService.save(updateOrder);
+        return ResponseEntity.ok(updateOrder);
     }
 }
+

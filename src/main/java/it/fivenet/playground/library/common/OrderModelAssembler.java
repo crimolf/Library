@@ -22,7 +22,7 @@ public class OrderModelAssembler implements RepresentationModelAssembler<Order, 
 
         if (order.getCurrentOrderStatus() == OrderStatus.NOLEGGIATO) {
             orderModel.add(linkTo(methodOn(OrderController.class).cancel(order.getId())).withRel("cancel"));
-            orderModel.add(linkTo(methodOn(OrderController.class).complete(order.getId())).withRel("complete"));
+            orderModel.add(linkTo(methodOn(OrderController.class).returned(order.getId())).withRel("returned"));
         }
 
         return orderModel;

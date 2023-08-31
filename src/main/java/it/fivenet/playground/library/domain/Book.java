@@ -1,24 +1,28 @@
 package it.fivenet.playground.library.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+import static jakarta.persistence.GenerationType.TABLE;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
 public class Book {
 
     private @Id
     @GeneratedValue Long id;
     private String titolo;
     private String testo;
-    private Long numerBookInStock;
-    private Long numberBooksOut;
+    public int numberBookInStock;
+    /*@Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    */
+    public int numberBooksOut;
 }
+

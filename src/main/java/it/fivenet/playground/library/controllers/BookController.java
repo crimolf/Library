@@ -1,15 +1,20 @@
 package it.fivenet.playground.library.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import it.fivenet.playground.library.common.BookModelAssembler;
-import it.fivenet.playground.library.exceptions.BookNotFoundException;
 import it.fivenet.playground.library.domain.Book;
-import it.fivenet.playground.library.repositories.BookRepository;
+import it.fivenet.playground.library.exceptions.BookNotFoundException;
+import it.fivenet.playground.library.services.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.mediatype.problem.Problem;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,75 +29,76 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class BookController {
-    private final BookRepository repository;
+    private final BookService bookService;
     private final BookModelAssembler assembler;
+    private int counterBooksInStock=101;
+    private int counterBooksOut=19;
 
-    BookController(BookRepository repository, BookModelAssembler assembler) {
-        this.repository = repository;
+    @Autowired
+    BookController(BookService bookService, BookModelAssembler assembler) {
+        this.bookService = bookService;
         this.assembler = assembler;
     }
 
 
-    // Aggregate root
-    // tag::get-aggregate-root[]
-    @GetMapping("/libri")
+
+
+    @GetMapping("/books")
     public CollectionModel<EntityModel<Book>> all() {
 
-        List<EntityModel<Book>> libri = repository.findAll().stream() //
-                .map(assembler::toModel) //
+        List<EntityModel<Book>> books = bookService.findAll().stream() //
+                .map((Book book) -> assembler.toModel((Book) book)) //
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(libri, linkTo(methodOn(BookController.class).all()).withSelfRel());
+        return CollectionModel.of(books,
+                linkTo(methodOn(BookController.class).all()).withSelfRel());
     }
-    // end::get-aggregate-root[]
 
-    @PostMapping("/libri")
-    ResponseEntity<?> newLibro(@RequestBody Book newBook) {
-
-        EntityModel<Book> entityModel = assembler.toModel(repository.save(newBook));
+    @PostMapping("/books")
+    ResponseEntity<EntityModel<Book>> newBook(@RequestBody Book book) {
+        counterBooksInStock++;
+        book.setNumberBookInStock(counterBooksInStock+book.getNumberBookInStock());
+        book.setNumberBooksOut(counterBooksOut);
+        Long bookId=bookService.newBook(book);
 
         return ResponseEntity //
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
-                .body(entityModel);
+                .created(linkTo(methodOn(BookController.class).one(bookId)).toUri()) //
+                .body(assembler.toModel(book));
+
     }
 
-    // Single item
 
-    @GetMapping("/libri/{id}")
+
+
+    @GetMapping("/books/{id}")
     public EntityModel<Book> one(@PathVariable Long id) {
 
-        Book book = repository.findById(id) //
+        Book book = bookService.findById(id) //
                 .orElseThrow(() -> new BookNotFoundException(id));
 
         return assembler.toModel(book);
     }
 
-    @PutMapping("/libri/{id}")
-    ResponseEntity<?> replaceLibro(@RequestBody Book newBook, @PathVariable Long id) {
+    @PutMapping("/books/{id}")
+    public ResponseEntity<?> returned(@PathVariable Long id) {
 
-        Book updatedBook = repository.findById(id) //
-                .map(book -> {
-                    book.setTitolo(newBook.getTitolo());
-                    book.setTesto(newBook.getTesto());
-                    return repository.save(book);
-                }) //
-                .orElseGet(() -> {
-                    newBook.setId(id);
-                    return repository.save(newBook);
-                });
+        Optional<Book>book = bookService.findById(id) ;
 
-        EntityModel<Book> entityModel = assembler.toModel(updatedBook);
+
 
         return ResponseEntity //
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
-                .body(entityModel);
+                .status(HttpStatus.METHOD_NOT_ALLOWED) //
+                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
+                .body(Problem.create() //
+                        .withTitle("Method not allowed") );
     }
 
-    @DeleteMapping("/libri/{id}")
-    ResponseEntity<?> deleteLibro(@PathVariable Long id) {
-
-        repository.deleteById(id);
-
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/books/{id}")
+    public Optional<Book> delete(@PathVariable Long id) {
+        counterBooksInStock--;
+        return bookService.deleteById(id);
     }
+
+
 }
+

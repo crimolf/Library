@@ -5,6 +5,7 @@ import it.fivenet.playground.library.domain.Order;
 import it.fivenet.playground.library.repositories.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 
@@ -44,5 +45,26 @@ public class OrderServiceImpl implements OrderService {
         }
 
     }
+
+    @Override
+    public Optional<Order> deleteById(Long id) {
+
+        orderRepository.deleteById(id);
+
+        return null;
+    }
+
+    @Override
+    public Collection<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+
+
+    @Override
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
 }
+
 

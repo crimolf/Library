@@ -1,5 +1,4 @@
 package it.fivenet.playground.library.repositories;
-
 import it.fivenet.playground.library.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 

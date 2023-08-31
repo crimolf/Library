@@ -7,7 +7,7 @@
 
 </head>
 <body>
-<h1>Lista Libri</h1>
+<h1>Books List</h1>
 
 <div class="container">
     <table>
@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="book : ${libri}">
+        <tr th:each="book : ${books}">
             <td th:text="${book.ISBN}"></td>
             <td th:text="${book.titolo}"></td>
             <td th:text="${book.testo}"></td>
