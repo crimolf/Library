@@ -1,5 +1,7 @@
 package it.fivenet.playground.library.controllers;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,25 +10,26 @@ import it.fivenet.playground.library.common.BookModelAssembler;
 import it.fivenet.playground.library.domain.Book;
 import it.fivenet.playground.library.exceptions.BookNotFoundException;
 import it.fivenet.playground.library.services.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.mediatype.problem.Problem;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class BookController {
     private final BookService bookService;
@@ -43,22 +46,30 @@ public class BookController {
 
 
 
+
+
+
     @GetMapping("/books")
-    public CollectionModel<EntityModel<Book>> all() {
-
-        List<EntityModel<Book>> books = bookService.findAll().stream() //
-                .map((Book book) -> assembler.toModel((Book) book)) //
-                .collect(Collectors.toList());
-
-        return CollectionModel.of(books,
-                linkTo(methodOn(BookController.class).all()).withSelfRel());
+    public List<Book> getAllBooks() {
+        return (List<Book>) bookService.findAll();
     }
+
+
+
+
+
+
+
+
+
 
     @PostMapping("/books")
     ResponseEntity<EntityModel<Book>> newBook(@RequestBody Book book) {
+        //
         counterBooksInStock++;
         book.setNumberBookInStock(counterBooksInStock+book.getNumberBookInStock());
         book.setNumberBooksOut(counterBooksOut);
+        //
         Long bookId=bookService.newBook(book);
 
         return ResponseEntity //
@@ -79,6 +90,22 @@ public class BookController {
         return assembler.toModel(book);
     }
 
+
+
+
+
+
+    @PostMapping("/addbook")
+    public String addBook(@Valid Book book, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "add-book";
+        }
+
+        bookService.save(Optional.ofNullable(book));
+        return "redirect:/index";
+    }
+
+
     @PutMapping("/books/{id}")
     public ResponseEntity<?> returned(@PathVariable Long id) {
 
@@ -94,10 +121,52 @@ public class BookController {
     }
 
     @DeleteMapping("/books/{id}")
-    public Optional<Book> delete(@PathVariable Long id) {
+    public Optional<Book> deleteBook(@PathVariable Long id) {
         counterBooksInStock--;
         return bookService.deleteById(id);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

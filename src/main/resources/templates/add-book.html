@@ -1,0 +1,13 @@
+<form action="#" th:action="@{/addbook}" th:object="${book}" method="post">
+
+    <label for="titolo">Titolo</label>
+    <input type="text" th:field="titolo" id="titolo" placeholder="Titolo">
+    <span th:if="${#fields.hasErrors('titolo')}" th:errors="titolo"></span>
+
+    <label for="testo">Testo</label>
+    <input type="text" th:field="testo" id="testo" placeholder="Testo">
+    <span th:if="${#fields.hasErrors('testo')}" th:errors="testo"></span>
+    <input type="submit" value="Add Book">
+
+
+</form>

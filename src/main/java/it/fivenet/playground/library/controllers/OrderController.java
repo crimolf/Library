@@ -19,6 +19,7 @@ import org.springframework.hateoas.mediatype.problem.Problem;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
+@CrossOrigin
 @RestController
 public class OrderController {
     private final OrderService orderService;
@@ -100,5 +101,8 @@ public class OrderController {
         orderService.save(updateOrder);
         return ResponseEntity.ok(updateOrder);
     }
+
+
+
 }
 

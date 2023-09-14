@@ -27,14 +27,15 @@ class LoadDatabase {
     CommandLineRunner initDatabase(BookRepository bookRepository, OrderRepository orderRepository) {
 
         return args -> {
-            bookRepository.save(Book.builder().numberBookInStock(100).titolo("signore degli anelli").testo("lorem ispum").numberBooksOut(19).build());
+            /*bookRepository.save(Book.builder().numberBookInStock(100).titolo("signore degli anelli").testo("lorem ispum").numberBooksOut(19).build());
             bookRepository.save(Book.builder().numberBookInStock(101).titolo("bibbia").testo("lorem ispum").numberBooksOut(19).build());
 
             bookRepository.findAll().forEach(book -> log.info("Preloaded " + book));
 
+
             orderRepository.save(Order.builder().description("esempio di descrizione ordine1").currentOrderStatus(NOLEGGIATO).creationDate(LocalDateTime.of(2023,AUGUST,28,15,30,40,50000)).lastUpdateDate(LocalDateTime.of(2023,AUGUST,30,9,15,30,10000)).build());
             orderRepository.save(Order.builder().description("esempio di descrizione ordine2").currentOrderStatus(NOLEGGIATO).creationDate(LocalDateTime.of(2021,AUGUST,28,15,30,40,50000)).lastUpdateDate(LocalDateTime.of(2021,AUGUST,30,9,15,30,10000)).build());
-
+*/
 
             orderRepository.findAll().forEach(order -> {
                 log.info("Preloaded " + order);
