@@ -71,11 +71,9 @@ public class BookController {
         book.setNumberBooksOut(counterBooksOut);
         //
         Long bookId=bookService.newBook(book);
-
         return ResponseEntity //
                 .created(linkTo(methodOn(BookController.class).one(bookId)).toUri()) //
                 .body(assembler.toModel(book));
-
     }
 
 
@@ -92,18 +90,6 @@ public class BookController {
 
 
 
-
-
-
-    @PostMapping("/addbook")
-    public String addBook(@Valid Book book, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add-book";
-        }
-
-        bookService.save(Optional.ofNullable(book));
-        return "redirect:/index";
-    }
 
 
     @PutMapping("/books/{id}")
@@ -125,47 +111,6 @@ public class BookController {
         counterBooksInStock--;
         return bookService.deleteById(id);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

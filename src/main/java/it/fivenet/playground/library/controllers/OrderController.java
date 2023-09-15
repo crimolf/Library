@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class OrderController {
     private final OrderService orderService;
@@ -42,15 +42,10 @@ public class OrderController {
 
 
     @GetMapping("/orders")
-    public CollectionModel<EntityModel<Order>> all() {
-
-        List<EntityModel<Order>> orders = orderService.findAll().stream() //
-                .map((Object order) -> assembler.toModel((Order) order)) //
-                .collect(Collectors.toList());
-
-        return CollectionModel.of(orders, //
-                linkTo(methodOn(OrderController.class).all()).withSelfRel());
+    public List<Order> getAllOrders() {
+        return (List<Order>) orderService.findAll();
     }
+
 
     @GetMapping("/orders/{id}")
     public EntityModel<Order> one(@PathVariable Long id) {
@@ -63,11 +58,11 @@ public class OrderController {
 
     @PostMapping("/orders")
     ResponseEntity<EntityModel<Order>> newOrder(@RequestBody Order order) {
-
+        //
         order.setCurrentOrderStatus(OrderStatus.NOLEGGIATO);
         order.setCreationDate(LocalDateTime.now());
         order.setLastUpdateDate(LocalDateTime.now());
-
+        //
         Long orderId=orderService.newOrder(order);
         return ResponseEntity //
                 .created(linkTo(methodOn(OrderController.class).one(orderId)).toUri()) //

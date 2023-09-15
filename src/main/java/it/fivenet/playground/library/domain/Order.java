@@ -16,10 +16,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "CUSTOMER_ORDER")
 public class Order {
 
-    private @Id @GeneratedValue Long id;
-
+    private @Id
+    @GeneratedValue Long id;
     private String description;
-
     @Enumerated(EnumType.STRING)private OrderStatus currentOrderStatus;
     private Long bookId;
     private String customerId;
