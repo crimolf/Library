@@ -1,24 +1,23 @@
+<h2>Employee Details</h2>
+
+<hr/>
 <div *ngIf="order">
   <div>
-    <label>id: </label> {{order.id}}
+    <label><b>Id: </b></label> {{order.id}}
   </div>
   <div>
-    <label>description: </label> {{order.description}}
+    <label><b>Description: </b></label> {{order.description}}
   </div>
   <div>
-    <label>currentOrderStatus: </label> {{order.currentOrderStatus}}
+    <label><b>Status: </b></label> {{order.currentOrderStatus}}
   </div>
   <div>
-    <label>creationDate: </label> {{order.creationDate}}
+    <label><b>Creation Date: </b></label> {{order.creationDate}}
   </div>
-  <div>
-    <label>lastUpdateDate: </label> {{order.lastUpdateDate}}
-  </div>
-
-
-
-  <span class="button is-small btn-danger" >Delete</span>
-
-
-  <hr/>
+    <div>
+      <label><b>Last Update Date: </b></label> {{order.lastUpdateDate}}
 </div>
+</div>
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to Order List</button><br>

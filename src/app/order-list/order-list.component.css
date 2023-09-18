@@ -1,0 +1,44 @@
+/* Stile di base per i pulsanti */
+button {
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: black; /* Colore di sfondo normale */
+  color: #fff; /* Colore del testo normale */
+  transition: background-color 0.3s, color 0.3s; /* Transizione per l'effetto hover */
+  margin-right: 10px; /* Spaziatura orizzontale tra i pulsanti */
+  display: inline-block;
+}
+
+/* Effetto hover */
+button:hover {
+  background-color: #008FB3FF; /* Cambia il colore di sfondo al passaggio del mouse */
+  color: #fff; /* Cambia il colore del testo al passaggio del mouse */
+}
+
+/* Stile per il contenitore dei bottoni */
+.button-container {
+  white-space: nowrap; /* Impedisce il ritorno a capo automatico */
+}
+
+/* Stile per i pulsanti all'interno del contenitore */
+.button-container button {
+  margin-right: 10px; /* Spaziatura tra i pulsanti */
+}
+
+/* Stile per il bottone rosso */
+.my-red-button {
+  background-color: rgba(217, 4, 4, 0.82); /* Cambia il colore di sfondo in rosso */
+  color: white; /* Cambia il colore del testo in bianco (o il colore desiderato per il testo) */
+}
+
+.my-green-button {
+  background-color: rgb(77, 201, 8); /* Cambia il colore di sfondo in verde */
+  color: white; /* Cambia il colore del testo in bianco (o il colore desiderato per il testo) */
+}
+
+/* Centra verticalmente le icone all'interno dei pulsanti */
+button .mat-icon {
+  vertical-align: middle;
+}

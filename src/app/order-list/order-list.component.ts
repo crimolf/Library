@@ -1,7 +1,9 @@
+import { OrderDetailsComponent } from '../order-details/order-details.component';
 import { Observable } from "rxjs";
-import { OrderService } from "./../order.service";
-import { Order } from "./../order";
+import { OrderService } from "../order.service";
+import { Order } from "../order";
 import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-order-list",
@@ -11,9 +13,9 @@ import { Component, OnInit } from "@angular/core";
 export class OrderListComponent implements OnInit {
   orders: Observable<Order[]>;
 
-  constructor(private orderService: OrderService) {
-    // @ts-ignore
-    this.orders = this.orderService.getOrder();
+  constructor(private orderService: OrderService,
+              private router: Router) {
+    this.orders=this.orderService.getOrdersList();
   }
 
   ngOnInit() {
@@ -24,8 +26,32 @@ export class OrderListComponent implements OnInit {
     this.orders = this.orderService.getOrdersList();
   }
 
-  public deleteOrder(id: number) {
+  deleteOrder(id: number) {
     this.orderService.deleteOrder(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error));
+  }
+
+  orderDetails(id: number){
+    this.router.navigate(['details', id]);
+  }
+
+  cancelOrder(id: number,order:Order) {
+    this.orderService.cancelOrder(id,order)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error));
+  }
+
+  returnOrder(id: number,order:Order) {
+    this.orderService.returnOrder(id,order)
       .subscribe(
         data => {
           console.log(data);

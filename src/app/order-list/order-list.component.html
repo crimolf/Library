@@ -20,7 +20,14 @@
         <td>{{order.currentOrderStatus}}</td>
         <td>{{order.creationDate}}</td>
         <td>{{order.lastUpdateDate}}</td>
-        <td><button (click)="deleteOrder(order.id)">Delete</button></td>
+        <td>
+          <div class="button-container">
+          <button mat-mini-fab (click)="orderDetails(order.id)" class="my-green-button"><mat-icon>library_books</mat-icon></button>
+          <button  (click)="returnOrder(order.id,order)"  class="btn btn-info"  >Return</button>
+          <button  (click)="cancelOrder(order.id,order)" class="btn btn-info" >Cancel</button>
+            <button mat-mini-fab (click)="deleteOrder(order.id)" class="my-red-button"><mat-icon>delete</mat-icon></button>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>

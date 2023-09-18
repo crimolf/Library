@@ -10,6 +10,12 @@ import { HttpClientModule } from '@angular/common/http';
 import {CreateOrderComponent} from "./create-order/create-order.component";
 import {OrderDetailsComponent} from "./order-details/order-details.component";
 import {OrderListComponent} from "./order-list/order-list.component";
+import { UpdateOrderComponent } from './update-order/update-order.component';
+import { UpdateBookComponent } from './update-book/update-book.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatIconModule} from "@angular/material/icon";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,14 +23,20 @@ import {OrderListComponent} from "./order-list/order-list.component";
     BookDetailsComponent,
     BookListComponent,
     CreateOrderComponent,
+
     OrderDetailsComponent,
-    OrderListComponent
+    OrderListComponent,
+    UpdateOrderComponent,
+    UpdateBookComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

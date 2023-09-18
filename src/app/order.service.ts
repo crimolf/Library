@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Order} from "./order";
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +11,7 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  getOrder(id: number): Observable<Object> {
+  getOrder(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -27,6 +25,14 @@ export class OrderService {
 
   deleteOrder(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+  }
+
+  cancelOrder(id: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/${id}/cancel`, value);
+  }
+
+  returnOrder(id: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/${id}/return`, value);
   }
 
   getOrdersList(): Observable<any> {

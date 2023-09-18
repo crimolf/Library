@@ -4,13 +4,20 @@ import { Routes, RouterModule } from '@angular/router';
 import { BookListComponent } from './book-list/book-list.component';
 import {CreateOrderComponent} from "./create-order/create-order.component";
 import {OrderListComponent} from "./order-list/order-list.component";
+import {UpdateOrderComponent} from "./update-order/update-order.component";
+import {OrderDetailsComponent} from "./order-details/order-details.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'book', pathMatch: 'full' },
   { path: 'books', component: BookListComponent },
   { path: 'orders', component: OrderListComponent },
-  { path: 'addBooks', component: CreateBookComponent },
-  { path: 'addOrders', component: CreateOrderComponent }
+  { path: 'addBook', component: CreateBookComponent },
+  { path: 'addOrder', component: CreateOrderComponent },
+  { path: 'returnOrder', component: CreateOrderComponent },
+  { path: 'cancelOrder', component: CreateOrderComponent },
+  { path: 'update/:id', component: UpdateOrderComponent },
+  { path: 'details/:id', component: OrderDetailsComponent },
+
 ];
 
 @NgModule({
