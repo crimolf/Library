@@ -1,4 +1,4 @@
-package it.fivenet.playground.library.common;
+/*package it.fivenet.playground.library.common;
 import it.fivenet.playground.library.domain.Book;
 import it.fivenet.playground.library.domain.Order;
 import it.fivenet.playground.library.domain.OrderStatus;
@@ -35,7 +35,7 @@ class LoadDatabase {
 
             orderRepository.save(Order.builder().description("esempio di descrizione ordine1").currentOrderStatus(NOLEGGIATO).creationDate(LocalDateTime.of(2023,AUGUST,28,15,30,40,50000)).lastUpdateDate(LocalDateTime.of(2023,AUGUST,30,9,15,30,10000)).build());
             orderRepository.save(Order.builder().description("esempio di descrizione ordine2").currentOrderStatus(NOLEGGIATO).creationDate(LocalDateTime.of(2021,AUGUST,28,15,30,40,50000)).lastUpdateDate(LocalDateTime.of(2021,AUGUST,30,9,15,30,10000)).build());
-*/
+
 
             orderRepository.findAll().forEach(order -> {
                 log.info("Preloaded " + order);
@@ -44,3 +44,4 @@ class LoadDatabase {
         };
     }
 }
+*/

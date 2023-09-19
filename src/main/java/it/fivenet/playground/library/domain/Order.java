@@ -13,16 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-@Table(name = "CUSTOMER_ORDER")
+@Table(name = "order_test")
 public class Order {
 
     private @Id
-    @GeneratedValue Long id;
-    private String description;
-    @Enumerated(EnumType.STRING)private OrderStatus currentOrderStatus;
-    private Long bookId;
-    private String customerId;
-    private LocalDateTime creationDate;
-    private LocalDateTime lastUpdateDate;
+    @Column@GeneratedValue Long id;
+    @Column private String description;
+    @Column@Enumerated(EnumType.STRING)private OrderStatus currentOrderStatus;
+    @Column private LocalDateTime creationDate;
+    @Column private LocalDateTime lastUpdateDate;
 
 }

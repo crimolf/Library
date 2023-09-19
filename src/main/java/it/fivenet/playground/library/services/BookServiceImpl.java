@@ -16,23 +16,23 @@ public class BookServiceImpl implements BookService {
     }
 
 
-        @Override
-        public Long newBook(Book book) {
-
-
+    @Override
+    public Long newBook(Book book) {
         Book newBook = bookRepository.save(book);
         return newBook.getId();
         }
 
 
-        @Override
-        public Optional<Book> findById(Long id) {
+    @Override
+    public Optional<Book> findById(Long id) {
 
         Optional<Book> book= bookRepository.findById(id);
 
 
         return book;
-        }
+    }
+
+
 
 
     @Override
@@ -42,18 +42,6 @@ public class BookServiceImpl implements BookService {
 
         return null;
     }
-
-
-
-
-
-
-
-
-        @Override
-        public Book save(Optional<Book> book) {
-        return null;
-        }
 
 
     @Override

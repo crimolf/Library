@@ -92,19 +92,7 @@ public class BookController {
 
 
 
-    @PutMapping("/books/{id}")
-    public ResponseEntity<?> returned(@PathVariable Long id) {
 
-        Optional<Book>book = bookService.findById(id) ;
-
-
-
-        return ResponseEntity //
-                .status(HttpStatus.METHOD_NOT_ALLOWED) //
-                .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
-                .body(Problem.create() //
-                        .withTitle("Method not allowed") );
-    }
 
     @DeleteMapping("/books/{id}")
     public Optional<Book> deleteBook(@PathVariable Long id) {

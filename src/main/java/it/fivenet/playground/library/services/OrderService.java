@@ -1,7 +1,6 @@
 package it.fivenet.playground.library.services;
 
 
-import it.fivenet.playground.library.domain.Book;
 import it.fivenet.playground.library.domain.Order;
 
 import java.util.Collection;
@@ -16,11 +15,10 @@ public interface OrderService {
 
     Optional<Order> deleteById(Long id);
 
-    public void returnBook(Long orderId);
 
     Collection<Order> findAll();
 
 
-    Order save(Order order);
+    void save(Order order);
 }
 
