@@ -1,24 +1,23 @@
+<h2>Book Details</h2>
+
+<hr/>
 <div *ngIf="book">
   <div>
-    <label>id: </label> {{book.id}}
+    <label><b>Id: </b></label> {{book.id}}
   </div>
   <div>
-    <label>titolo: </label> {{book.titolo}}
+    <label><b>Titolo: </b></label> {{book.titolo}}
   </div>
   <div>
-    <label>testo: </label> {{book.testo}}
+    <label><b>Testo: </b></label> {{book.testo}}
   </div>
   <div>
-    <label>numberBookInStock: </label> {{book.numberBookInStock}}
+    <label><b>Number of books in stock: </b></label> {{book.numberBookInStock}}
   </div>
   <div>
-    <label>numberBooksOut: </label> {{book.numberBooksOut}}
+    <label><b>Number of books out: </b></label> {{book.numberBooksOut}}
   </div>
-
-
-
-  <span class="button is-small btn-danger" >Delete</span>
-
-
-  <hr/>
 </div>
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to Book List</button><br>

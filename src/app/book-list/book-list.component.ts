@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 import { BookService } from "./../book.service";
 import { Book } from "./../book";
 import { Component, OnInit } from "@angular/core";
-
+import { Router } from '@angular/router';
 @Component({
   selector: "app-book-list",
   templateUrl: "./book-list.component.html",
@@ -11,9 +11,9 @@ import { Component, OnInit } from "@angular/core";
 export class BookListComponent implements OnInit {
   books: Observable<Book[]>;
 
-  constructor(private bookService: BookService) {
-    // @ts-ignore
-    this.books = this.bookService.getBook();
+  constructor(private bookService: BookService,
+              private router: Router) {
+    this.books = this.bookService.getBooksList();
   }
 
   ngOnInit() {
@@ -24,7 +24,12 @@ export class BookListComponent implements OnInit {
     this.books = this.bookService.getBooksList();
   }
 
-  public deleteBook(id: number) {
+
+  bookDetails(id: number){
+    this.router.navigate(['bookDetails', id]);
+  }
+
+  deleteBook(id: number) {
     this.bookService.deleteBook(id)
       .subscribe(
         data => {
@@ -32,5 +37,10 @@ export class BookListComponent implements OnInit {
           this.reloadData();
         },
         error => console.log(error));
+  }
+
+
+  list(){
+    this.router.navigate(['books']);
   }
 }

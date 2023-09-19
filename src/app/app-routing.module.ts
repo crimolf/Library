@@ -6,6 +6,8 @@ import {CreateOrderComponent} from "./create-order/create-order.component";
 import {OrderListComponent} from "./order-list/order-list.component";
 import {UpdateOrderComponent} from "./update-order/update-order.component";
 import {OrderDetailsComponent} from "./order-details/order-details.component";
+import {UpdateBookComponent} from "./update-book/update-book.component";
+import {BookDetailsComponent} from "./book-details/book-details.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'book', pathMatch: 'full' },
@@ -15,8 +17,12 @@ const routes: Routes = [
   { path: 'addOrder', component: CreateOrderComponent },
   { path: 'returnOrder', component: CreateOrderComponent },
   { path: 'cancelOrder', component: CreateOrderComponent },
+
   { path: 'update/:id', component: UpdateOrderComponent },
-  { path: 'details/:id', component: OrderDetailsComponent },
+  { path: 'update/:id', component: UpdateBookComponent },
+  { path: 'orderDetails/:id', component: OrderDetailsComponent },
+  { path: 'bookDetails/:id', component: BookDetailsComponent }
+
 
 ];
 

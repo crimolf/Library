@@ -20,7 +20,12 @@
         <td>{{book.testo}}</td>
         <td>{{book.numberBookInStock}}</td>
         <td>{{book.numberBooksOut}}</td>
-        <td><button (click)="deleteBook(book.id)">Delete</button></td>
+        <td>
+          <div class="button-container">
+            <button mat-mini-fab (click)="bookDetails(book.id)" class="my-green-button"><mat-icon>library_books</mat-icon></button>
+            <button mat-mini-fab (click)="deleteBook(book.id)" class="my-red-button"><mat-icon>delete</mat-icon></button>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>

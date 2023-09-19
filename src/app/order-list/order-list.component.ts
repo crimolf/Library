@@ -37,7 +37,7 @@ export class OrderListComponent implements OnInit {
   }
 
   orderDetails(id: number){
-    this.router.navigate(['details', id]);
+    this.router.navigate(['orderDetails', id]);
   }
 
   cancelOrder(id: number,order:Order) {

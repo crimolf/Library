@@ -1,0 +1,14 @@
+.div-1 {
+  background-color: #f5f5f5;
+  box-sizing: content-box;
+  height: 47px;
+  opacity: 1;
+  border-style: solid;
+  border-width: 1px;
+  border-color: darkgray;
+
+}
+
+h2 .white-text {
+  color: white;
+}

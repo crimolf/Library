@@ -26,6 +26,8 @@ import {MatIconModule} from "@angular/material/icon";
 
     OrderDetailsComponent,
     OrderListComponent,
+    BookDetailsComponent,
+    BookListComponent,
     UpdateOrderComponent,
     UpdateBookComponent
   ],

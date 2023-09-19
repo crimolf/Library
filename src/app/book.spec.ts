@@ -1,7 +1,16 @@
-import { Book } from './book';
+import { TestBed } from '@angular/core/testing';
 
-describe('Book', () => {
-  it('should create an instance', () => {
-    expect(new Book()).toBeTruthy();
+import { BookService } from './book.service';
+
+describe('BookService', () => {
+  let service: BookService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(BookService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 });

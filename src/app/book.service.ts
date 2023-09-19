@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Book} from "./book";
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +11,7 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  getBook(id: number): Observable<Object> {
+  getBook(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -28,6 +26,8 @@ export class BookService {
   deleteBook(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
+
+
 
   getBooksList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
