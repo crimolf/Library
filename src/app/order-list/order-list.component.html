@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>Orders</h1>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>description</th>
+        <th>currentOrderStatus</th>
+        <th>creationDate</th>
+        <th>lastUpdateDate</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders | async">
+        <td>{{order.id}}</td>
+        <td>{{order.description}}</td>
+        <td>{{order.currentOrderStatus}}</td>
+        <td>{{order.creationDate}}</td>
+        <td>{{order.lastUpdateDate}}</td>
+        <td>
+          <div class="button-container">
+          <button mat-mini-fab (click)="orderDetails(order.id)" class="my-green-button"><mat-icon>library_books</mat-icon></button>
+          <button  (click)="returnOrder(order.id,order)"  class="btn btn-info"  >Return</button>
+          <button  (click)="cancelOrder(order.id,order)" class="btn btn-info" >Cancel</button>
+            <button mat-mini-fab (click)="deleteOrder(order.id)" class="my-red-button"><mat-icon>delete</mat-icon></button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

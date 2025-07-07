@@ -1,0 +1,10 @@
+{
+  "http://localhost:8080/books": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "http://localhost:8080/orders": {
+    "target": "http://localhost:8080",
+    "secure": false
+  }
+}
