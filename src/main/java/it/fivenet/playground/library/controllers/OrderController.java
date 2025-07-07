@@ -58,15 +58,15 @@ public class OrderController {
 
     @PostMapping("/orders")
     ResponseEntity<EntityModel<Order>> newOrder(@RequestBody Order order) {
-        //
         order.setCurrentOrderStatus(OrderStatus.NOLEGGIATO);
         order.setCreationDate(LocalDateTime.now());
         order.setLastUpdateDate(LocalDateTime.now());
-        //
-        Long orderId=orderService.newOrder(order);
-        return ResponseEntity //
-                .created(linkTo(methodOn(OrderController.class).one(orderId)).toUri()) //
-                .body(assembler.toModel(order));
+
+        Order savedOrder = orderService.newOrder(order); // Ricevi l'oggetto completo
+
+        return ResponseEntity
+                .created(linkTo(methodOn(OrderController.class).one(savedOrder.getId())).toUri())
+                .body(assembler.toModel(savedOrder)); // Usa l'oggetto salvato
     }
     @DeleteMapping("/orders/{id}")
     public Optional<Order> delete(@PathVariable Long id) {

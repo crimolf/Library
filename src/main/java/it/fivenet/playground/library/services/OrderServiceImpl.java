@@ -18,10 +18,9 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Long newOrder(Order order) {
+    public Order newOrder(Order order) {
         order.setCurrentOrderStatus(OrderStatus.NOLEGGIATO);
-        Order newOrder = orderRepository.save(order);
-        return newOrder.getId();
+        return orderRepository.save(order); // Restituisci l'oggetto completo
     }
 
     @Override
