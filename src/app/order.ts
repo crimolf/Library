@@ -10,7 +10,6 @@ export class Order {
   constructor() {
     this.id =0;
     this.description = '';
-    this.currentOrderStatus = '';
     this.creationDate = new Date();
     this.lastUpdateDate = new Date();
 
