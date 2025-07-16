@@ -8,9 +8,11 @@ import {UpdateOrderComponent} from "./update-order/update-order.component";
 import {OrderDetailsComponent} from "./order-details/order-details.component";
 import {UpdateBookComponent} from "./update-book/update-book.component";
 import {BookDetailsComponent} from "./book-details/book-details.component";
+import {HomeComponent} from "./home/home.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'book', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'books', component: BookListComponent },
   { path: 'orders', component: OrderListComponent },
   { path: 'addBook', component: CreateBookComponent },
@@ -18,8 +20,8 @@ const routes: Routes = [
   { path: 'returnOrder', component: CreateOrderComponent },
   { path: 'cancelOrder', component: CreateOrderComponent },
 
-  { path: 'update/:id', component: UpdateOrderComponent },
-  { path: 'update/:id', component: UpdateBookComponent },
+  { path: 'update/order/:id', component: UpdateOrderComponent },
+  { path: 'update/book/:id', component: UpdateBookComponent },
   { path: 'orderDetails/:id', component: OrderDetailsComponent },
   { path: 'bookDetails/:id', component: BookDetailsComponent }
 

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router'; // ✅ Needed for <router-outlet>
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,10 +15,15 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { UpdateOrderComponent } from './update-order/update-order.component';
 import { UpdateBookComponent } from './update-book/update-book.component';
+import { HomeComponent } from './home/home.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -29,7 +35,8 @@ import { MatIconModule } from '@angular/material/icon';
     OrderDetailsComponent,
     OrderListComponent,
     UpdateOrderComponent,
-    UpdateBookComponent
+    UpdateBookComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +44,14 @@ import { MatIconModule } from '@angular/material/icon';
     RouterModule, // ✅ Add this so <router-outlet> works
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
