@@ -1,18 +1,17 @@
-
 export class Book {
   id: number;
-  testo: string;
-  titolo: string;
-  numberBookInStock: number;
-  numberBooksOut: number;
-
+  title: string;
+  author: string;
+  description: string;
+  stock: number;
+  rented: number;
 
   constructor() {
-    this.id =0;
-    this.testo = '';
-    this.titolo = '';
-    this.numberBookInStock = 0;
-    this.numberBooksOut = 0;
-
+    this.id = 0;
+    this.title = '';
+    this.author = '';
+    this.description = '';
+    this.stock = 0;
+    this.rented = 0;
   }
 }

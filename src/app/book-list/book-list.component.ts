@@ -3,6 +3,7 @@ import { BookService } from "./../book.service";
 import { Book } from "./../book";
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+
 @Component({
   selector: "app-book-list",
   templateUrl: "./book-list.component.html",
@@ -13,7 +14,7 @@ export class BookListComponent implements OnInit {
 
   constructor(private bookService: BookService,
               private router: Router) {
-    this.books = this.bookService.getBooksList();
+    this.books = new Observable<Book[]>();
   }
 
   ngOnInit() {
@@ -23,7 +24,6 @@ export class BookListComponent implements OnInit {
   reloadData() {
     this.books = this.bookService.getBooksList();
   }
-
 
   bookDetails(id: number){
     this.router.navigate(['bookDetails', id]);
@@ -37,10 +37,5 @@ export class BookListComponent implements OnInit {
           this.reloadData();
         },
         error => console.log(error));
-  }
-
-
-  list(){
-    this.router.navigate(['books']);
   }
 }

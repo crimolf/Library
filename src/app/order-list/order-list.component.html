@@ -1,31 +1,36 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h1>Orders</h1>
+    <div class="heading-container">
+      <h1>Orders</h1>
+      <button mat-fab color="primary" aria-label="Add new order" routerLink="/addOrder">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
   <div class="panel-body">
     <table class="table table-striped table-bordered">
       <thead>
       <tr>
-        <th>id</th>
-        <th>description</th>
-        <th>currentOrderStatus</th>
-        <th>creationDate</th>
-        <th>lastUpdateDate</th>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Creation Date</th>
+        <th>Last Update Date</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let order of orders | async">
         <td>{{order.id}}</td>
         <td>{{order.description}}</td>
-        <td>{{order.currentOrderStatus}}</td>
+        <td>{{order.status}}</td>
         <td>{{order.creationDate}}</td>
-        <td>{{order.lastUpdateDate}}</td>
+        <td>{{order.lastUpdateDate | date:'medium'}}</td>
         <td>
           <div class="button-container">
-          <button mat-mini-fab (click)="orderDetails(order.id)" class="my-green-button"><mat-icon>library_books</mat-icon></button>
-          <button  (click)="returnOrder(order.id,order)"  class="btn btn-info"  >Return</button>
-          <button  (click)="cancelOrder(order.id,order)" class="btn btn-info" >Cancel</button>
-            <button mat-mini-fab (click)="deleteOrder(order.id)" class="my-red-button"><mat-icon>delete</mat-icon></button>
+            <button mat-mini-fab (click)="orderDetails(order.id)" class="my-green-button" matTooltip="View Details"><mat-icon>library_books</mat-icon></button>
+            <button mat-mini-fab (click)="returnOrder(order.id)" color="accent" *ngIf="order.status === 'RENTED'" matTooltip="Return Order"><mat-icon>assignment_return</mat-icon></button>
+            <button mat-mini-fab (click)="deleteOrder(order.id)" class="my-red-button" matTooltip="Delete Order"><mat-icon>delete</mat-icon></button>
           </div>
         </td>
       </tr>

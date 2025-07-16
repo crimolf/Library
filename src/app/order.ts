@@ -1,18 +1,17 @@
+import { OrderStatus } from './order-status.enum';
 
 export class Order {
   id: number;
   description: string;
-  currentOrderStatus: string;
-  creationDate:Date;
+  status: OrderStatus;
+  creationDate: Date;
   lastUpdateDate: Date;
 
-
   constructor() {
-    this.id =0;
+    this.id = 0;
     this.description = '';
-    this.currentOrderStatus = 'NOLEGGIATO';
+    this.status = OrderStatus.RENTED;
     this.creationDate = new Date();
     this.lastUpdateDate = new Date();
-
   }
 }

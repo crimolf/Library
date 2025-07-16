@@ -1,9 +1,9 @@
-import { OrderDetailsComponent } from '../order-details/order-details.component';
 import { Observable } from "rxjs";
 import { OrderService } from "../order.service";
 import { Order } from "../order";
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+import { OrderStatus } from "../order-status.enum";
 
 @Component({
   selector: "app-order-list",
@@ -15,7 +15,7 @@ export class OrderListComponent implements OnInit {
 
   constructor(private orderService: OrderService,
               private router: Router) {
-    this.orders=this.orderService.getOrdersList();
+    this.orders = new Observable<Order[]>();
   }
 
   ngOnInit() {
@@ -40,18 +40,8 @@ export class OrderListComponent implements OnInit {
     this.router.navigate(['orderDetails', id]);
   }
 
-  cancelOrder(id: number,order:Order) {
-    this.orderService.cancelOrder(id,order)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
-  }
-
-  returnOrder(id: number,order:Order) {
-    this.orderService.returnOrder(id,order)
+  returnOrder(id: number) {
+    this.orderService.updateOrderStatus(id, OrderStatus.RETURNED)
       .subscribe(
         data => {
           console.log(data);

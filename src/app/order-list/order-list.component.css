@@ -20,6 +20,8 @@ button:hover {
 /* Stile per il contenitore dei bottoni */
 .button-container {
   white-space: nowrap; /* Impedisce il ritorno a capo automatico */
+  display: flex;
+  gap: 8px; /* Adds space between buttons */
 }
 
 /* Stile per i pulsanti all'interno del contenitore */
@@ -29,16 +31,23 @@ button:hover {
 
 /* Stile per il bottone rosso */
 .my-red-button {
-  background-color: rgba(217, 4, 4, 0.82); /* Cambia il colore di sfondo in rosso */
+  background-color: #f44336; /* Cambia il colore di sfondo in rosso */
   color: white; /* Cambia il colore del testo in bianco (o il colore desiderato per il testo) */
 }
 
 .my-green-button {
-  background-color: rgb(77, 201, 8); /* Cambia il colore di sfondo in verde */
+  background-color: #4CAF50; /* Cambia il colore di sfondo in verde */
   color: white; /* Cambia il colore del testo in bianco (o il colore desiderato per il testo) */
 }
 
 /* Centra verticalmente le icone all'interno dei pulsanti */
 button .mat-icon {
   vertical-align: middle;
+}
+
+/* Stile per il contenitore del titolo */
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

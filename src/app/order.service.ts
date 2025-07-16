@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { OrderStatus } from './order-status.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  private baseUrl = 'http://localhost:8080/orders';
+  private baseUrl = 'http://localhost:8081/api/v1/orders';
 
   constructor(private http: HttpClient) { }
 
@@ -27,12 +28,9 @@ export class OrderService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  cancelOrder(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}/cancel`, value);
-  }
-
-  returnOrder(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}/return`, value);
+  updateOrderStatus(id: number, status: OrderStatus): Observable<Object> {
+    // Spring Boot expects the raw string value for the enum
+    return this.http.patch(`${this.baseUrl}/${id}/status`, `"${status}"`, { headers: { 'Content-Type': 'application/json' } });
   }
 
   getOrdersList(): Observable<any> {

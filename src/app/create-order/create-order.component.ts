@@ -1,6 +1,8 @@
 import { OrderService } from '../order.service';
 import { Order } from '../order';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-order',
@@ -12,7 +14,9 @@ export class CreateOrderComponent implements OnInit {
   order: Order = new Order();
   submitted = false;
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService,
+              private router: Router,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -24,7 +28,13 @@ export class CreateOrderComponent implements OnInit {
 
   save() {
     this.orderService.createOrder(this.order)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data);
+        this.snackBar.open('Order created successfully!', 'Close', {
+          duration: 10000,
+        });
+        this.router.navigate(['/orders']);
+      }, error => console.log(error));
     this.order = new Order();
   }
 

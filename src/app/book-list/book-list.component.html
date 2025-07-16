@@ -1,25 +1,31 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h1>Books</h1>
+    <div class="heading-container">
+      <h1>Books</h1>
+      <button mat-fab color="primary" aria-label="Add new book" routerLink="/addBook">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
   <div class="panel-body">
     <table class="table table-striped table-bordered">
       <thead>
       <tr>
-        <th>id</th>
-        <th>titolo</th>
-        <th>testo</th>
-        <th>numberBookInStock</th>
-        <th>numberBooksOut</th>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Stock</th>
+        <th>Rented</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let book of books | async">
         <td>{{book.id}}</td>
-        <td>{{book.titolo}}</td>
-        <td>{{book.testo}}</td>
-        <td>{{book.numberBookInStock}}</td>
-        <td>{{book.numberBooksOut}}</td>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.stock}}</td>
+        <td>{{book.rented}}</td>
         <td>
           <div class="button-container">
             <button mat-mini-fab (click)="bookDetails(book.id)" class="my-green-button"><mat-icon>library_books</mat-icon></button>

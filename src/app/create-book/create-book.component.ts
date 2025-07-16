@@ -1,6 +1,8 @@
 import { BookService } from '../book.service';
 import { Book } from '../book';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-book',
@@ -12,7 +14,9 @@ export class CreateBookComponent implements OnInit {
   book: Book = new Book();
   submitted = false;
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService,
+              private router: Router,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -24,7 +28,13 @@ export class CreateBookComponent implements OnInit {
 
   save() {
     this.bookService.createBook(this.book)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data);
+        this.snackBar.open('Book created successfully!', 'Close', {
+          duration: 10000,
+        });
+        this.router.navigate(['/books']);
+      }, error => console.log(error));
     this.book = new Book();
   }
 
